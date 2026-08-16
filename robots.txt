@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://www.loyalconsulting.com.br/sitemap.xml
