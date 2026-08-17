@@ -1,0 +1,32 @@
+sop_id: SOP-LP-005 / SOP-LP-008 / SOP-LP-012 / SOP-LP-014 / SOP-LP-018
+sop_version_used: não informado no repositório
+agent: Product Architect
+task_id: architecture-argon-bras-static-first
+date: 2026-08-16
+what_worked:
+  - A PRD separa fatos, interpretações, hipóteses e Human Gates de forma suficientemente detalhada para derivar contratos de arquitetura.
+  - O repositório declara uma landing page estática e contém um workflow de GitHub Pages, sustentando a escolha static-first.
+what_failed:
+  - O export estático atual não é uma base confiável de produção: sitemap.xml e robots.txt referenciam Loyal Consulting, e não há fonte de aplicação versionada identificada.
+  - Não há evidência no repositório de backend, CRM, upload seguro, analytics, pixels, consentimento ou persistência de leads.
+new_pattern:
+  - Para refatorar um export estático herdado, separar fonte versionada, dados validados e artefato publicado; tratar o export existente como inventário/legado, não como fonte canônica.
+  - Modelar formulário e tracking como adaptadores condicionais com estados explícitos (ausente/no-op/ativo), impedindo alegações de integração antes de QA.
+anti_pattern:
+  - Inferir que um formulário visível possui envio, que CTAs WhatsApp geram leads mensuráveis ou que menções no portfólio autorizam declarar marcas como clientes.
+  - Reutilizar sitemap, robots, schema ou metadados de um export anterior sem auditoria de domínio e marca.
+new_check:
+  - Antes de build/release, auditar HTML, sitemap, robots, canonical, Open Graph e schema para referências de outra marca/domínio.
+  - Antes de ativar formulário/tracking, registrar destino de lead, dados pessoais enviados, base legal/consentimento, segredo/proteção e evidência de QA.
+tool_notes:
+  - Inspeção local mostrou arquivos estáticos e workflow de Pages; nenhuma publicação, commit ou push foi realizada.
+decision_rule:
+  - Escolher static-first quando o requisito é conteúdo público e a operação de dados não está confirmada; somente acrescentar backend/terceiros após Human Gate e contrato operacional verificável.
+evidence:
+  - PRD_ARGON_BRAS_LP_HIGH_CALIBER.md, seções 21, 25, 33, 36, 39 e 47.
+  - README.md do repositório.
+  - .github/workflows/deploy-pages.yml, sitemap.xml e robots.txt do repositório.
+recommended_change:
+  - Incorporar ao SOP de arquitetura de LP um gate obrigatório de “auditoria de resíduo de export” e uma matriz de capacidades declaradas versus efetivamente implementadas.
+confidence: alta
+review_required: true
